@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
-import '../model/lap.dart';  // Importação correta
+import '../model/lap.dart';
+import '../services/notification.dart';
 
 class StopwatchViewModel extends ChangeNotifier {
   late Timer _timer;
+  Timer? _inactiveTimer; // Timer para notificação de inatividade
   int _milliseconds = 0;
   bool _isRunning = false;
   final List<Lap> _laps = [];
@@ -20,6 +22,12 @@ class StopwatchViewModel extends ChangeNotifier {
       });
       _isRunning = true;
       notifyListeners();
+
+      // Notificação persistente
+      NotificationService.showPersistentRunningNotification(currentTime);
+
+      // Cancelar timer de inatividade se houver
+      _inactiveTimer?.cancel();
     }
   }
 
@@ -28,11 +36,17 @@ class StopwatchViewModel extends ChangeNotifier {
       _timer.cancel();
       _isRunning = false;
       notifyListeners();
+
+      // Inicia timer de 10s para notificação de inatividade
+      _inactiveTimer = Timer(Duration(seconds: 10), () {
+        NotificationService.showInactiveNotification();
+      });
     }
   }
 
   void resetTimer() {
     _timer.cancel();
+    _inactiveTimer?.cancel();
     _milliseconds = 0;
     _laps.clear();
     _isRunning = false;
@@ -47,6 +61,9 @@ class StopwatchViewModel extends ChangeNotifier {
 
     _laps.add(Lap(lapTime: lapTime, totalTime: totalTime));
     notifyListeners();
+
+    // Notificação de volta
+    NotificationService.showLapNotification(lapTime, totalTime);
   }
 
   String _formatTime(int milliseconds) {

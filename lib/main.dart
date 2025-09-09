@@ -1,10 +1,13 @@
+import 'package:agoravaicronometro/services/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'viewmodel/stopwatch_viewmodel.dart';  // Importação correta
 import 'view/stopwatch_page.dart';           // Importação correta
 
 void main() {
-  runApp(CronometroApp());
+  WidgetsFlutterBinding.ensureInitialized();
+   NotificationService.init(); 
+    runApp(CronometroApp());
 }
 
 class CronometroApp extends StatelessWidget {
