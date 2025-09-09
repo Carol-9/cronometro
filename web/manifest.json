@@ -1,6 +1,6 @@
 {
-    "name": "agoravaicronometro",
-    "short_name": "agoravaicronometro",
+    "name": "cronometro2",
+    "short_name": "cronometro2",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

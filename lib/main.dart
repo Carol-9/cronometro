@@ -1,4 +1,4 @@
-import 'package:agoravaicronometro/services/notification.dart';
+import 'package:agoravaicronometro/services/Notification.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'viewmodel/stopwatch_viewmodel.dart';  // Importação correta

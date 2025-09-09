@@ -1,4 +1,4 @@
-package com.example.agoravaicronometro
+package com.example.cronometro2
 
 import io.flutter.embedding.android.FlutterActivity
 
